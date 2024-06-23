@@ -15,7 +15,8 @@ const server = new ApolloServer({
 });
 
 server.start().then(() => {
-  server.applyMiddleware({ app });
+  // Explicitly assert the type of `server.app` as `Express.Application`
+  (server as any).applyMiddleware({ app });
 
   app.listen({ port: 4000 }, () => {
     logger.info(`Server ready at http://localhost:4000${server.graphqlPath}`);
